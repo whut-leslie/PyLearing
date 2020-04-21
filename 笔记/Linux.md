@@ -1,4 +1,4 @@
-# Linux
+Linux
 
 ## #一、操作系统
 
@@ -1077,3 +1077,159 @@ find -name "1*"
 **硬链接简介**
 
 - 在使用ln创建链接时，如果没有-s选项，会创建一个硬链接，而不是软链接
+
+### 03.打包压缩
+
+- **打包压缩**是日常工作中备份文件的一种方式
+- 在不同的操作系统中，常用的打包压缩方式是不同的
+  - Windows常用rar
+  - Mac常用zip
+  - Linux常用tra.gz
+
+#### 3.1打包/解包
+
+- tar 是Liunx中最常见的备份工具，此命令可以 **把一系列文件**打包到一个大文件中，也可以把一个打包的大文件恢复成一系列文件
+- tar 的命令格式如下
+
+```
+#打包文件
+tar -cvf 打包文件.tar 被打包的文件/路径 被打包...
+
+#解包文件
+tar -xvf 打包文件.tar
+```
+
+- tar 选项说明
+
+- | 选项 | 含义                                                      |
+  | ---- | --------------------------------------------------------- |
+  | c    | 生成档案文件，创建打包文件                                |
+  | x    | 解开档案文件                                              |
+  | v    | 列出归档解档的详细过程，显示进度                          |
+  | f    | 指定档案文件名称，f后面一定是.tar文件，所以必须放选项最后 |
+
+  > 注意：f 选项必须放在最后，其他选项顺序可以随意
+  >
+  > tar命令只负责打包，不能压缩
+
+**打包解包演练**
+
+1.删除桌面下的所有内容
+
+<img src="C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421102100057.png" alt="image-20200421102100057" style="zoom:80%;" />
+
+2.在桌面下新建三个空白文件 01.py、02.py、03.py
+
+![image-20200421102130451](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421102130451.png)
+
+3.将这三个文件打成一个py.tar的包
+
+![image-20200421102209189](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421102209189.png)
+
+![image-20200421102230676](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421102230676.png)
+
+4.新建 tar目录，并且将 py.tar 移动到 tar目录下
+
+![image-20200421102312675](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421102312675.png)
+
+5.解包 py.tar
+
+![image-20200421102347644](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421102347644.png)
+
+#### 3.2 压缩/解压缩
+
+##### 1）gzip
+
+- tar 与gzip命令结合可以使用实现文件打包和压缩
+  - tar只负责打包文件，但不压缩
+  - 用gzip压缩 tar打包后的文件，其扩展名一般用xxx.tar.gz
+
+> 在Linux中，最常见的压缩文件格式就是xxx.tar.gz
+
+- 在tar命令中有一个选项 -z可以调用gzip，从而可以方便的实现压缩和解压缩的功能
+- 命令格式如下
+
+```
+#压缩文件
+tar -zcvf 打包文件.tar.gz 被压缩文件/路径
+
+#解压缩文件
+tar -zxvf 打包文件.tar.gz
+
+#解压缩文件到指定路径
+tar -zxvf 打包文件.tar.gz -C目标路径
+```
+
+| 选项 | 含义                                           |
+| ---- | ---------------------------------------------- |
+| -C   | 解压缩到指定目录，注意：要解压缩的目录必须存在 |
+
+![image-20200421103332282](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421103332282.png)
+
+![image-20200421103408325](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421103408325.png)
+
+![image-20200421103519037](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421103519037.png)
+
+##### 2）bzip2（two）
+
+- tar与bzip2 命令结合可以使用实现文件 **打包和压缩**（用法和gzip一样）
+
+  - tar只负责打包文件，但不压缩
+  - 用bzip2压缩tar 打包后的文件，其扩展名一般用xxx.tar.bz2
+
+- 在tar命令中有一个选项 -j 可以调用bzip2，从而可以方便的实现压缩和解压缩的功能
+
+  ```
+  #压缩文件
+  tar -jcvf 打包文件.tar.bz2 被压缩文件/路径...
+  
+  #解压缩文件
+  tar -jxvf 打包文件.tar.bz2
+  ```
+
+  
+
+如果解压缩文件不存在就无法解压缩
+
+<img src="C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421141121214.png" alt="image-20200421141121214" style="zoom:80%;" />
+
+### 04 .软件安装
+
+#### 4.1 通过 apt 安装/卸载软件
+
+- apt 是Advanced Package Tool，是Linux下的一款安装包管理工具
+- 可以在终端中方便的 **安装/卸载/更新安装包**
+
+```
+#1.安装软件
+$ sudo apt install 软件包
+
+#2.卸载软件
+$ sudo apt remove 软件名
+
+#3.更新已安装的包
+$ sudo apt upgrade
+```
+
+**安装演练**
+
+```
+# 一个小火车提示
+$ sudo apt install sl
+
+# 一个比较漂亮的查看当前排名的软件
+$ sudo apt install htop
+```
+
+![image-20200421143601336](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421143601336.png)
+
+#### 4.2 配置软件源
+
+- 如果希望在 Ubantu中安装软件，更加快速，可以通过设置镜像源，选择一个访问网速更快的服务器，来提供软件下载/安装服务
+- 提示：更换服务器之后需要一个相对比较长时间的更新过程，需要耐心等待。更新完成后，再安装软件都会从新设置的服务器下载软件了
+
+> 所谓镜像源，就是所有服务器的内容是相同的（镜像），但是根据所在位置不同，国内服务器通常速度会快一些
+
+![image-20200421144553362](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421144553362.png)
+
+![image-20200421145037963](C:\Users\Leslie\AppData\Roaming\Typora\typora-user-images\image-20200421145037963.png)

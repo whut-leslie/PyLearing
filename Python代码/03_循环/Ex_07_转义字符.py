@@ -1,0 +1,11 @@
+# \t 在控制台输出一个制表符，协助在输出文本时，垂直方向 保持对齐
+print("1\t2\t3\t")
+print("10\t20\t30\t")
+
+# \n 在控制台输出一个 换行符
+print("hello\npython")
+
+# \" 输出双引号
+# print("hello"hello") 想输出hello"hello 会出错
+print("hello\"hello")
+

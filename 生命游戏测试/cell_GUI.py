@@ -1,20 +1,34 @@
+"""
+图形用户界面
+"""
 import tkinter
 from cell import Cell
+from get_num import getNearbyNum
+from get_new import getNewCell
+from update import Update
 DEAD = 0
 LIVE = 1
 
 
 class Game:
-
+    """
+    game类，对cell实现GUI
+    """
     # 初始屏幕
     screen = None
     canvas = None
 
     def __init__(self, length):
+        """
+        :param length: 细胞个数为length*length
+        """
         self.length = length
         self.cells = Cell(length)
 
     def print_screen(self):
+        """
+        :return: 输出界面
+        """
         self.screen = tkinter.Tk()
         self.screen.title("生命游戏")
         self.screen.geometry(str('410x410'))
@@ -44,7 +58,10 @@ class Game:
                                                  (j + 1) * width, fill='grey')
 
     def update_screen(self):
-
-        self.cells.update()
+        """
+        更新画布界面
+        :return:
+        """
+        self.cells.cells = Update(self.cells.cells)
         self.draw_cells()
         self.canvas.after(100, self.update_screen)
